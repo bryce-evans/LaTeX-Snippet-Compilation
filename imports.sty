@@ -1,0 +1,101 @@
+% Imports
+% A compilation of all commonly used imports and macros
+% 
+% (c) 20134 Bryce Evans
+% LPPL LaTeX Public Project License
+%  
+\NeedsTeXFormat{LaTeX2e}% 
+\RequirePackage{amsmath,amssymb,amsfonts,units,multicol,empheq,centernot}
+\RequirePackage{algorithmicx,algpseudocode,verbatim,comment}
+\RequirePackage{tikz,tikzrput}
+
+%\RequirePackage[scale=2,color=black!10,angle=0,pages=some,placement=bottom]{background}
+
+
+\usepackage{geometry}
+%\usepackage{draftwatermark}
+\usepackage{url}
+\usepackage{lipsum}
+
+\usepackage[object=vectorian]{pgfornament}
+\usepackage{lmodern}   
+\usepackage[utf8]{inputenc} 
+\usepackage[T1]{fontenc} 
+\usepackage{adforn}
+\usepackage{lmodern}
+\pdfmapfile{+ OrnementsADF.map}
+\usepackage{adforn}
+
+\usetikzlibrary{arrows}
+\usetikzlibrary{calc}
+
+
+%block style
+\setlength\parindent{0pt}
+
+\setlength{\topmargin}{-.5in}
+\setlength{\textheight}{9in}
+\setlength{\oddsidemargin}{.125in}
+\setlength{\textwidth}{6.25in}
+
+
+% Function to let adforn work
+\makeatletter
+\newcommand{\adfornset}{%
+1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75}
+\newcommand{\adfornshow}{%
+	\def\tempa{75}%
+	\@for \xx:=\adfornset \do {%
+		\ifx\xx\tempa
+			\xx: \adforn{\xx}%
+		\else
+			\xx: \adforn{\xx}\\%
+		\fi}}
+\makeatother
+
+
+\ProvidesPackage{imports}[2014/02/06 v1.1 Imports]%
+
+
+%\begin{comment}
+%\newcommand{\watermarktext}[3][][]
+%{\SetWatermarkText{\parbox{12cm}{%
+%  #1 \\
+%  \url{#2} \\ 
+%  #3}}
+%\SetWatermarkScale{.5}
+%\SetWatermarkColor{red!10}
+%}
+%\end{comment}
+
+\newcommand{\TODO}{
+
+\begin{center}
+\textcolor{red}{
+	\hrule 
+	\vspace{1em}
+	\textbf{TODO}
+	\vspace{1em}
+	\hrule
+	}
+\end{center}
+}
+
+%\renewcommand{\blacksquare}{\tomb}
+
+\newcommand{\sectionbreak}{
+	\begin{center}
+\adforn{21}\quad\adforn{11}\quad\adforn{49}\\
+\end{center}
+}
+\newcommand{\rarrow}{
+	$\rightarrow$
+}
+
+
+
+\tikzstyle{label} = [ -latex',draw=none, fill=none, minimum height=2em]
+
+
+\endinput
+% end
