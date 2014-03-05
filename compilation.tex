@@ -19,9 +19,23 @@
 \usetikzlibrary{calc}
 \usepackage{tikzrput}
 
+\usetikzlibrary{calc,trees,positioning,arrows,chains,shapes.geometric,%
+    decorations.pathreplacing,decorations.pathmorphing,shapes,%
+    matrix,shapes.symbols}
+    
+    \usetikzlibrary{positioning}
+
+\usetikzlibrary{shapes.multipart}
+
 \usepackage{listings}
 \usepackage{synttree}
 
+\usepackage{nicefrac}
+\usepackage{diagbox}
+
+\usepackage{setspace}
+\usepackage{anysize}
+\usepackage{CJKutf8}
 
 
 \usepackage{fancyhdr}
@@ -87,7 +101,89 @@
 Graph $G$ with clique $k_5$ highlighted in red and $v_1,v_2$ connected to every vertex in $G$. A near clique of size $k+2$ forms between the red and green colored nodes.
 \end{center}
 
+\tikzset{
+>=stealth',
+  punktchain/.style={
+    rectangle, 
+    rounded corners, 
+    % fill=black!10,
+    draw=black, very thick,
+    text width=8em, 
+    minimum height=2.5em, 
+    text centered, 
+    on chain},
+  line/.style={draw, thick, <-},
+  element/.style={
+    tape,
+    top color=white,
+    bottom color=blue!50!black!60!,
+    minimum width=8em,
+    draw=blue!40!black!90, very thick,
+    text width=10em, 
+    minimum height=3.5em, 
+    text centered, 
+    on chain},
+  every join/.style={->, thick,shorten >=1pt},
+  decoration={brace},
+  tuborg/.style={decorate},
+  tubnode/.style={midway, right=2pt},
+   arr/.style={join,thick,->,shorten >=1pt},
+}
 
+\begin{minipage}{\textwidth}
+
+
+\textbf{Flow chart style graph}
+\begin{center}
+\begin{tikzpicture}
+  [ start chain=going]
+  \definecolor{coolblu}{rgb}{0,0.6,0.6};
+  % HACK... no idea why the 2.69... random number making it work
+     \node[punktchain, draw = coolblu] (a) at (2.69,10) {\texttt{i := 0}};
+     \node[punktchain, draw = coolblu] (if) at (0,8)      {\texttt{while i < 10}};
+     \node[punktchain, draw = coolblu] (inc)  at (3,6) {\texttt{i := i + 1}};
+     \node[punktchain, draw = coolblu] (cont)  at (0,4) {$\vdots$};
+
+     \draw[arr] (2.69,11.5) to node[label, left]  {$\bot$} (a);
+     \draw[arr] (a) to node[label, left]  {$[0,0]$} (if);
+     
+     
+       \draw[arr,bend left] (if) to node[label, right]  {$[0,9]$} (inc);
+       \draw[arr,bend left] (inc) to node[label, right]  {$[1,10]$} (if);
+       
+       
+        \draw[arr] (if) to node[label, left]  {$[10,10]$} (cont);
+      \draw[arr] (cont) to (2.69,2.5);
+
+  \end{tikzpicture}
+\end{center}
+\end{minipage}
+\vspace{8mm}
+
+\textbf{Side by side graphs, bended labeled edges}
+\begin{center}
+\begin{multicols}{2}
+\begin{minipage}[5cm]{\textwidth/2}
+\vspace{6.45mm}
+\begin{tikzpicture}[>=stealth',scale=.5,auto=center,every node/.style={circle,fill=blue!10,minimum size=3em,draw}]
+
+\node (a) at (0,0) {};
+\node (b) at (10,0) {};
+\draw[->] (a) edge[bend right] (b) ;
+\draw[->] (a) edge[bend left] (b) ;
+\end{tikzpicture}
+\end{minipage}
+\begin{minipage}[5cm]{\textwidth/2}
+\begin{tikzpicture}[>=stealth',scale=.5,auto=center,every node/.style={circle,fill=blue!10,minimum size=3em,draw}]
+
+\node (a) at (0,0) {};
+\node (b) at (10,0) {};
+\draw[->,bend left] (a) to node[label, above]  {$c_e(x)$} (b);
+\draw[->,bend right] (a) to node[label,below]  {$c_e'(x)$} (b);
+\end{tikzpicture}
+\end{minipage}
+\end{multicols}
+\end{center}
 
 
 \begin{center}
@@ -319,6 +415,36 @@ public class Hello extends JApplet {
   \end{tabular}
 \end{center}
 
+Diagonal Box
+
+%\usepackage{diagbox}
+%\usepackage{nicefrac}
+		\begin{center}
+\begin{tabular}{c | c c c c}
+\diagbox[width=4em, height=2.2em]{CD}{AB} & 00 & 01 & 11 & 10 \\\hline
+00 & $\nicefrac{1}{8}$ & 0 & $\nicefrac{1}{8}$ & 0\\
+01 & 0 & $\nicefrac{1}{8}$ & 0 & $\nicefrac{1}{8}$\\
+11 & 0 & $\nicefrac{1}{8}$ & 0 & $\nicefrac{1}{8}$\\
+10 & $\nicefrac{1}{8}$ & 0 &$\nicefrac{1}{8}$ & 0\\
+\end{tabular}
+\end{center}
+
+
+		\begin{center}
+\begin{tabular}{c || c| c |c}
+\diagbox[width=3em, height=2.4em]{$A$}{$B$} & $s_1$ & $s_2$ & 
+  $s_3$ \\\hline \hline
+$s_1$ & \diagbox[width=2.5em, height=2em]{$0$}{$\epsilon$} &     
+  \diagbox[width=2.5em, height=2em]{$0$}{$\epsilon$} & 
+  \diagbox[width=2.5em, height=2em]{$0$}{$\epsilon$} \\ \hline
+$s_2$ & \diagbox[width=2.5em, height=2em]{$0$}{$0$} & 
+  \diagbox[width=2.5em, height=2em]{$0$}{$0$} & 
+  \diagbox[width=2.5em, height=2em]{$0$}{$0$} \\ \hline
+$s_3$ & \diagbox[width=2.5em, height=2em]{$0$}{$0$} & 
+  \diagbox[width=2.5em, height=2em]{$0$}{$0$} & 
+  \diagbox[width=2.5em, height=2em]{$0$}{$0$} \\ 
+\end{tabular}
+\end{center}
 \definecolor{hl}{rgb}{0,0.6,0.6}
 
 \pagebreak
@@ -454,4 +580,21 @@ $(3+ (5*2)) $\\
 
 \synttree[+[3][*[5][2]]]
 \end{multicols}
+
+\section{Piecewise Functions}
+$$
+f(n) =
+\begin{cases}
+n/2, & \text{if }n\text{ is even} \\
+3n+1, & \text{if }n\text{ is odd}
+\end{cases}
+$$
+\section{Chinese and Foreign Characters}
+% \usepackage{setspace}
+% \usepackage{anysize}
+% \usepackage{CJKutf8}
+
+\begin{CJK*}{UTF8}{gbsn}
+\Huge 方启明
+\end{CJK*}
 \end{document}
