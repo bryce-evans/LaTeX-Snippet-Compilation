@@ -18,6 +18,7 @@
 \usetikzlibrary{arrows}
 \usetikzlibrary{calc}
 \usepackage{tikzrput}
+%\usetikzlibrary{decorations.text,math}
 
 \usepackage{semantic}
 
@@ -43,7 +44,7 @@
 \usepackage{fancyhdr}
 \pagestyle{fancy}
 \fancyhead[L]{\adforn{34} \textit{Snippet Compilation}}
-\fancyhead[R]{Bryce Evanas}
+\fancyhead[R]{Bryce Evans}
 
 \fancyfoot[C]{$\quad  \quad \quad \quad \quad \quad \quad \, \, \, \, \,$ --~\thepage~--}
 
@@ -192,6 +193,32 @@ Graph $G$ with clique $k_5$ highlighted in red and $v_1,v_2$ connected to every 
 \end{tikzpicture}
 \end{center}
 
+\textbf{Vertical bipartite, Vertical flow}
+\begin{center}
+
+\begin{tikzpicture}[auto,scale=2, nodes={ellipse,draw, thick, fill=blue!10, text width=6mm,text centered}] 
+
+
+    \node (a1) at (0,0) {$A_1$};
+	\node (a2) at (1,0) {$A_2$};
+	\node (a3) at (2,0) {$A_3$};
+	\node (a4) at (3,0) {$A_4$};
+	\node (a5) at (4,0) {$A_5$};
+	\node (a6) at (5,0) {$A_6$};
+	
+	\node (b1) at (1,-1) {$B_1$};
+	\node (b2) at (2,-1) {$B_2$};
+	\node (b3) at (3,-1) {$B_3$};	
+	\node (c) at (4,-1) {$C$};		
+ 
+        
+        \foreach \from/\to in {a1/b1,a1/b2,a1/b3, a2/b1,a2/b2,a2/b3, a3/b1,a3/b2,a3/b3, a4/b2,a4/b3,a4/c, a5/c, a6/c}
+        \definecolor{blu}{rgb}{0,0.4,.6}
+\draw[>=stealth',->,blu,thick] (\from) edge(\to);
+
+\end{tikzpicture}
+\end{center}
+
 \textbf{Doubly labeled nodes, Flow Graph}
 \begin{center}
 \begin{tikzpicture}[>=stealth',scale=1,auto=center,every node/.style={circle,fill=blue!10,minimum size=2.5em,draw}]
@@ -215,7 +242,7 @@ Graph $G$ with clique $k_5$ highlighted in red and $v_1,v_2$ connected to every 
 \draw[->] (j) edge (ij);
 \end{tikzpicture}
 \end{center}
-\textbf{Side by side graphs, bended labeled edges}
+\textbf{Side by side graphs, bent labeled edges}
 \begin{center}
 \begin{multicols}{2}
 \begin{minipage}[5cm]{\textwidth/2}
@@ -239,8 +266,78 @@ Graph $G$ with clique $k_5$ highlighted in red and $v_1,v_2$ connected to every 
 \end{minipage}
 \end{multicols}
 \end{center}
+\textbf{Self Loops}
+\begin{center}
+\begin{tikzpicture}[scale=0.2]
+\tikzstyle{every node}+=[inner sep=0pt]
+\draw [black,fill=blue!20] (24.4,-26.8) circle (3);
+\draw  (24.4,-26.8) node {$X$};
+\draw [black,fill=green!20] (44,-26.8) circle  (3);
+\draw (44,-26.8) node {$Y$};
+\draw [black] (45.635,-24.299) arc (174.5648:-113.4352:2.25);
+\draw (50.46,-22.12) node [right] {$20$};
+\fill [black] (46.98,-26.58) -- (47.73,-27.15) -- (47.82,-26.15);
+\draw [black] (41,-26.8) -- (27.4,-26.8);
+\fill [black] (27.4,-26.8) -- (28.2,-27.3) -- (28.2,-26.3);
+\draw (34.2,-26.3) node [above] {$10$};
+\draw [black] (21.414,-26.678) arc (295.38954:7.38954:2.25);
+\draw (17.8,-22.38) node [left] {$40$};
+\fill [black] (22.68,-24.36) -- (22.79,-23.42) -- (21.89,-23.85);
+\draw [black] (27.4,-26.8) -- (41,-26.8);
+\fill [black] (41,-26.8) -- (40.2,-26.3) -- (40.2,-27.3);
+\draw (34.2,-27.3) node[below] {$10$};
+\end{tikzpicture}
+\end{center}
+\textbf{Markets}
+\begin{center}
+\definecolor{dgreen}{rgb}{0,0.6,.1}
+\begin{tikzpicture}[auto,scale=2, nodes={draw, thick, fill=blue!10}] 
 
-\textbf{Anotated Graph}
+    \node[circle] (s1) {$S_1$};
+    \node[regular polygon,regular polygon sides=4,right= 2cm of s1] (t1)  {$T_1$};
+    \node[label, text=dgreen, above=0 of t1,font=\Large] {\textbf{+1}};
+    \node[circle,right= 2cm of t1] (b1)  {$B_1$};
+    
+    \node[circle,below= 0.58cm of b1] (b3)  {$B_3$};
+    
+     \node[circle,below= 2cm of s1] (s2) {$S_2$};
+    \node[regular polygon,regular polygon sides=4,below=2cm of t1] (t2)  {$T_2$};
+    \node[label, text=dgreen, above=0 of t2,font=\Large] {\textbf{+1}};
+    \node[circle,below= 2cm of b1] (b2) {$B_2$};
+    \draw[->] (s1) to node[label, font=\Large] {$0$} (t1);
+     \draw[->] (t1) to node[label, font=\Large] {$1$} (b3);
+    
+    \draw[->] (s2) to node[label, font=\Large] {$0$} (t2);
+    \draw[->] (t2) to node[label, font=\Large] {$1$} (b2);
+    
+    
+\end{tikzpicture}
+\end{center}
+\textbf{Network}
+\begin{center}
+\begin{tikzpicture}[auto,minimum size = 3em,scale=1.5, nodes={circle, draw, thick, fill=blue!10}] 
+\node(a) at (0,5) {$A$};
+\node(c) at (1,3) {$C$};
+\node(d) at (3,3.25) {$D$};
+\node(b) at (4.5,2.5) {$B$};
+\node(e) at (0,1) {$E$};
+\node[fill=purple!10] (x) at (3,6) {$X$};
+
+\draw[->,thick, bend left] (a) to node[label, font=\Large] {$\nicefrac{a}{3}$} (b);
+\draw[->,thick] (a) to node[label, font=\Large] {$\nicefrac{a}{3}$} (d);
+\draw[->, thick, bend left] (e) to node[label, font=\Large] {$\nicefrac{5a}{6}$} (a);
+\draw[->, thick, bend left] (d) to node[label, font=\Large] {$\nicefrac{a}{3}$} (e);
+\draw[->,thick] (c) to node[label, font=\Large] {$\nicefrac{a}{6}$} (a);
+\draw[->,thick] (d) to node[label, font=\Large] {$\nicefrac{a}{3}$} (c);
+\draw[->,thick] (b) to node[label, font=\Large] {$\nicefrac{a}{3}$} (d);
+\draw[->,thick, bend left] (b) to node[label, font=\Large] {$\nicefrac{a}{3}$} (e);
+\draw[->,thick] (c) to node[label, font=\Large] {$\nicefrac{a}{6}$} (e);
+\draw[->,thick, bend left] (a) to node[label, font=\Large] {$\nicefrac{a}{3}$} (x);
+\draw[->,thick, bend left] (x) to node[label, font=\Large] {$\nicefrac{a}{3}$} (b);
+\end{tikzpicture}
+\end{center}
+
+\textbf{Annotated Graph}
 
 \begin{center}
 \begin{minipage}{\textwidth*3/7}
@@ -374,27 +471,7 @@ Given a solution set $S$ to the submatrix domination problem, test all values of
 \adforn{21}\quad\adforn{11}\quad\adforn{49}\\
 \end{center}
 
-\section{Party Invitations}
-
-\subsection{Solution}
-
-Prove: \textit{Vertex Cover} $\leq_p$ \textit{Party Invitation Problem}\\
-
-The Vertex Cover Problem in NP complete reduces to the party invitation problem. If we can solve the party invitation problem, we could solve the vertex cover problem as well. Create this efficient reduction $\sigma$ as follows:  \\
-
-The party invitation takes inputs:
-\begin{itemize}
-\item a set of lists $L = \{l_1,l_2,l_3, \ldots, l_{k}\}$
-\item a set of corresponding values $M = \{m_1, m_2, m_3, \ldots, m_k\}$ of the \textit{minimum} number of elements that can be chosen from $l_i \in L$.
-\item $n$ - the max number of elements that can be chosen from all lists
-\end{itemize}
-
-The solution to the problem outputs a boolean \texttt{True} if there exists a set of elements smaller than $n$ in cardinality  that satisfies all the constraints, and \texttt{False} otherwise.\\
-
-Recall that vertex cover has given $G = (V,E)$, and $k$, the max number of vertices that can be chosen in the cover, with the constraint $\forall e = (u,v) \in E$, $e$ is connected to some $o \in O$. Vertex cover returns a boolean \texttt{True} if there exists some set of vertices $S$ such that $|S| \leq k $ and \texttt{False} otherwise. \\
-
-\textbf{$\sigma$ Reduction:}
-Consider $n$ to be the number of edges, $|E|$. For all $e \in E$, at least 1 vertex must be taken, so $M = \{1,1,1,\ldots, 1\}$. For all $e = (u,v) \in E$, construct a list $L' = \{\{u_1,v_1\},\{u_2,v_2\},\{u_3,v_3\},\ldots, \{u_k,v_k\}\}$ Use $L'$ as the input set of lists for the party invitation problem. This reduction maintains all of the constraints for Vertex Cover -  each edge $e$ must have one valid vertex be chosen to cover it where a valid vertex is one that has $e$ as an endpoint. \\
+\section{Runtime table}
 
 \textbf{Runtime of $\sigma$}
 \begin{align*}
@@ -402,31 +479,6 @@ Consider $n$ to be the number of edges, $|E|$. For all $e \in E$, at least 1 ver
 &\text{Create List $L'$: } &O(E)\\ 
 &\text{Find $M$: } &O(1)\\
 &\textbf{Total Reduction Runtime: } &O(E)\\
-\end{align*}
-
-\textbf{$\tau$ Reduction:}
-Construct a function $\tau$ that takes the output of $\sigma$ and converts it to a valid solution of the vertex cover problem:\\
-
-The construction of $\tau$ is trivial - the output of $\sigma$ is equivalent to if a vertex cover of size $k$ exists. Vertex Cover $(VC)$  will return true if and only if the party invitation problem $(PI)$ returns true because each edge $e \in G$ requires at least one vertex it is connected to to be chosen. This is maintained in $PI$ because each set has a minimum number of elements needed to be picked to be 1, with valid elements being only vertices touching that edge. Therefore, under the constraints of $PI$, each edge will have at least one vertex that it is connected to be chosen. $\blacksquare$ \\
-
-\textbf{Runtime of $\tau$ }
-\begin{align*}
-&\text{Output boolean is equivalent to solution of vertex cover: } &O(1)\\ 
-&\textbf{Total Reduction Runtime: } &O(1)\\
-\end{align*}
-
-
-\subsection{Efficient Verifier:}
-Given a solution set $S$ of $n$ elements to $PI$, a polynomial verifier is as follows:\\
-
-For each element $e$ in list $l \in L$, check every element in $S$ and see if it exists. If every $e$ exists in $S$, the algorithm should have returned \texttt{True}, and if not, then \texttt{False}. \\
-
-\textbf{Runtime of Verifier }
-\begin{align*}
-&\text{Iterate through every $e$ in list $l \in L$,}\\
-&\text{$\quad$ with $m$ being the total number of these elements: $m = \sum_{l \in L} |l|$} &O(m)\\ 
-&\text{Iterate through every element of $S$ } &O(n)\\ 
-&\textbf{Total Runtime: } &O(nm)\\
 \end{align*}
 
 \begin{center}
@@ -714,4 +766,7 @@ $$
 \begin{CJK*}{UTF8}{gbsn}
 \Huge 方启明
 \end{CJK*}
+
+\section{Other Decorations}
+
 \end{document}
